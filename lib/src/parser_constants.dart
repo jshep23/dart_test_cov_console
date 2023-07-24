@@ -11,6 +11,7 @@ class ParserConstants {
   static const total = 'total';
   static const pass = 'pass';
   static const String invalid = 'Error invalid parameter!\n';
+  static const source = 'source';
   static const String helpPrint =
       'Generate coverage test report from lcov.info file to console.\n'
       'If not given a FILE, "coverage/lcov.info" will be used.\n'
@@ -44,6 +45,7 @@ class ParserConstants {
     Option('o', csvFile, false, false),
     Option('t', total, false, true),
     Option('p', pass, false, false),
+    Option('s', source, false, false)
   ];
 }
 

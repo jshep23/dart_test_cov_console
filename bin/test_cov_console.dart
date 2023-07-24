@@ -23,6 +23,8 @@ Future main(List<String> arguments) async {
   final slash = Platform.isWindows ? '\\' : '/';
   final lcovFile = args[ParserConstants.file] ?? 'coverage${slash}lcov.info';
 
+  final sourceCodeFolder = args[ParserConstants.source] ?? 'lib';
+
   final isCsv = args[ParserConstants.csv] == ParserConstants.csv;
   final csvFile =
       args[ParserConstants.csvFile] ?? 'coverage${slash}test_cov_console.csv';
@@ -41,13 +43,14 @@ Future main(List<String> arguments) async {
           .replaceAll(replaceSlash(lcovFile), '')
           .replaceAll('/', '');
       final lCovFullPath = '${dir.isEmpty ? '' : '$dir$slash'}$lcovFile';
-      final libFullPath = '${dir.isEmpty ? '' : '$dir$slash'}lib';
-      await _printSingleLCov(lCovFullPath, exPatterns, inPatterns, libFullPath,
-          dir, isCsv, isLineOnly, args);
+      final sourceCodeFullPath =
+          '${dir.isEmpty ? '' : '$dir$slash$sourceCodeFolder'}';
+      await _printSingleLCov(lCovFullPath, exPatterns, inPatterns,
+          sourceCodeFullPath, dir, isCsv, isLineOnly, args);
     }
   } else {
-    await _printSingleLCov(
-        lcovFile, exPatterns, inPatterns, 'lib', '', isCsv, isLineOnly, args);
+    await _printSingleLCov(lcovFile, exPatterns, inPatterns, sourceCodeFolder,
+        '', isCsv, isLineOnly, args);
   }
 
   if (isCsv) {
